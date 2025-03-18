@@ -1,0 +1,14 @@
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\bin\Release\TaskSchedule.exe.config
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\bin\Release\TaskSchedule.exe
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\bin\Release\TaskSchedule.pdb
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\bin\Release\TaskSchedule.xml
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\bin\Release\Newtonsoft.Json.dll
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\bin\Release\Newtonsoft.Json.xml
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\obj\Release\TaskSchedule.vbproj.AssemblyReference.cache
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\obj\Release\TaskSchedule.Resources.resources
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\obj\Release\TaskSchedule.vbproj.GenerateResource.cache
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\obj\Release\TaskSchedule.vbproj.CoreCompileInputs.cache
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\obj\Release\TaskSche.A1684720.Up2Date
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\obj\Release\TaskSchedule.exe
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\obj\Release\TaskSchedule.xml
+C:\Users\VALTEC03\Desktop\BackUp\Schedule\TaskSchedule\obj\Release\TaskSchedule.pdb

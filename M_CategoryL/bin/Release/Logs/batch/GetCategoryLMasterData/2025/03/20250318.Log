@@ -1,0 +1,4 @@
+[2025-03-18 10:56:01.530] [VFS_Manage_Cron] [Notice] "送信先URL[https://project-mot03.webjapan.co.jp/K241201/WebApi.asmx/GetCategoryLMasterData]"
+[2025-03-18 10:56:01.535] [VFS_Manage_Cron] [Notice] "data[{"contractClientCd":"K241201","manageCd":"pyhjfyy","authenticationKey":"F1E3CFFDFB23146EAB84DC667C9A9E1200BB0ACE3D767439D17CD016ED356F0D","lastUpdateDateTime":null}]"
+[2025-03-18 10:56:02.429] [VFS_Manage_Cron] [Notice] "response 文字列[{"Result":false,"Message":"E4:最終更新日時が指定されていません。","List":[]}]"
+[2025-03-18 10:56:02.434] [VFS_Manage_Cron] [Notice] "cron_GetCategoryLMasterData ReTELAからエラーが返却されました。エラーメッセージ [E4:最終更新日時が指定されていません。]"
