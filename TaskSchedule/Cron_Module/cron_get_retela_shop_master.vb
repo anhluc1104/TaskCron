@@ -103,13 +103,13 @@ Public Module cron_get_retela_shop_master
             Using trScope As New System.Transactions.TransactionScope(TransactionScopeOption.Required)
                 Using ta As New dsCronTableAdapters.M_ShopTableAdapter(connectionString)
                     sqlCommand = ta.GetUpdateCommandText()
+                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetShopMasterData")
                     If ta.Update(PageDataSet.M_Shop) < 1 Then
                         Return False
                     Else
                     End If
                 End Using
                 For Each row In PageDataSet.M_Shop
-                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetShopMasterData")
                     Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
                         + "], shop_code: [" + row("shop_code").ToString() _
                         + "], shop_name: [" + row("shop_name").ToString() _
@@ -120,7 +120,7 @@ Public Module cron_get_retela_shop_master
                         + "], update_date: [" + row("update_date").ToString() _
                         + "], del_flg: [" + row("del_flg").ToString()
                     log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetShopMasterData")
-                    log.LogPut(CommonConst.LogLever_Notice, "Connection successful!", "GetShopMasterData")
+                    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetShopMasterData")
                 Next
                 trScope.Complete()
             End Using

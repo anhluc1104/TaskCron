@@ -131,13 +131,13 @@ Public Module cron_get_retela_quote_product_master
             Using trScope As New System.Transactions.TransactionScope(TransactionScopeOption.Required)
                 Using ta As New dsCronTableAdapters.M_QuoteProductTableAdapter(connectionString)
                     sqlCommand = ta.GetUpdateCommandText()
+                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetQuoteProductMasterData")
                     If ta.Update(PageDataSet.M_QuoteProduct) < 1 Then
                         Return False
                     Else
                     End If
                 End Using
                 For Each row In PageDataSet.M_QuoteProduct
-                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetQuoteProductMasterData")
                     Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
                         + "], category_l_id_code: [" + row("category_l_id_code").ToString() _
                         + "], product_name: [" + row("product_name").ToString() _
@@ -147,7 +147,7 @@ Public Module cron_get_retela_quote_product_master
                         + "], update_date: [" + row("update_date").ToString() _
                         + "], del_flg: [" + row("del_flg").ToString()
                     log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetQuoteProductMasterData")
-                    log.LogPut(CommonConst.LogLever_Notice, "Connection successful!", "GetQuoteProductMasterData")
+                    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetQuoteProductMasterData")
                 Next
                 trScope.Complete()
             End Using

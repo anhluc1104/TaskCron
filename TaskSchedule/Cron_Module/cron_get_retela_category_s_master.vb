@@ -79,13 +79,13 @@ Public Module cron_get_retela_category_s_master
             Using trScope As New System.Transactions.TransactionScope(TransactionScopeOption.Required)
                 Using ta As New dsCronTableAdapters.M_CategorySTableAdapter(connectionString)
                     sqlCommand = ta.GetUpdateCommandText()
+                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetCategorySMasterData")
                     If ta.Update(PageDataSet.M_CategoryS) < 1 Then
                         Return False
                     Else
                     End If
                 End Using
                 For Each row In PageDataSet.M_CategoryS
-                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetCategorySMasterData")
                     Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
                         + "], DaiCd: [" + row("DaiCd").ToString() _
                         + "], CyuCd: [" + row("CyuCd").ToString() _
@@ -98,7 +98,7 @@ Public Module cron_get_retela_category_s_master
                         + "], update_date: [" + row("update_date").ToString() _
                         + "], del_flg: [" + row("del_flg").ToString() + "]"
                     log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetCategorySMasterData")
-                    log.LogPut(CommonConst.LogLever_Notice, "Connection successful!", "GetCategorySMasterData")
+                    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetCategorySMasterData")
                 Next
                 trScope.Complete()
             End Using

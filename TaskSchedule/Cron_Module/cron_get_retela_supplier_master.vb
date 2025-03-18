@@ -80,13 +80,13 @@ Public Module cron_get_retela_supplier_master
             Using trScope As New System.Transactions.TransactionScope(TransactionScopeOption.Required)
                 Using ta As New dsCronTableAdapters.M_SupplierTableAdapter(connectionString)
                     sqlCommand = ta.GetUpdateCommandText()
+                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetSupplierMasterData")
                     If ta.Update(PageDataSet.M_Supplier) < 1 Then
                         Return False
                     Else
                     End If
                 End Using
                 For Each row In PageDataSet.M_Supplier
-                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetSupplierMasterData")
                     Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
                         + "], supplierCd: [" + row("supplierCd").ToString() _
                         + "], supplierName: [" + row("supplierName").ToString() _
@@ -96,7 +96,7 @@ Public Module cron_get_retela_supplier_master
                         + "], update_date: [" + row("update_date").ToString() _
                         + "], del_flg: [" + row("del_flg").ToString() + "]"
                     log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetSupplierMasterData")
-                    log.LogPut(CommonConst.LogLever_Notice, "Connection successful!", "GetSupplierMasterData")
+                    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetSupplierMasterData")
                 Next
                 trScope.Complete()
             End Using
@@ -105,7 +105,6 @@ Public Module cron_get_retela_supplier_master
             Return False
         End Try
         Return True
-
     End Function
 End Module
 Public Class SupplierResponce

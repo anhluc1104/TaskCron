@@ -65,19 +65,17 @@ Public Module cron_get_retela_category_l_master
     Private Function DataUpdate(connectionString As String) As Boolean
         Dim clientCd = ConfigurationManager.AppSettings("RETELA_CONTRACT_CLIENT_CD")
         Dim log As New LogUtil()
-        Dim sqlCommand = ""
         Dim updateFlg = True
         Try
             Using trScope As New System.Transactions.TransactionScope(TransactionScopeOption.Required)
                 Using ta As New dsCronTableAdapters.M_CategoryLTableAdapter(connectionString)
-                    sqlCommand = ta.GetUpdateCommandText()
+                    log.LogPut(CommonConst.LogLever_Notice, ta.GetUpdateCommandText(), "GetCategoryLMasterData")
                     If ta.Update(PageDataSet.M_CategoryL) < 1 Then
                         Return False
                     Else
                     End If
                 End Using
                 For Each row In PageDataSet.M_CategoryL
-                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetCategoryLMasterData")
                     Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
                         + "], category_name: [" + row("category_name").ToString() _
                         + "], retela_dai_code: [" + row("retela_dai_code").ToString() _
@@ -88,7 +86,7 @@ Public Module cron_get_retela_category_l_master
                         + "], update_date: [" + row("update_date").ToString() _
                         + "], del_flg: [" + row("del_flg").ToString() + "]"
                     log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetCategoryLMasterData")
-                    log.LogPut(CommonConst.LogLever_Notice, "Connection successful!", "GetCategoryLMasterData")
+                    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetCategoryLMasterData")
                 Next
                 trScope.Complete()
             End Using
