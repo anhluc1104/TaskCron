@@ -20,7 +20,7 @@ Public Module cron_get_retela_supplier_master
                 Dim list = ret.List
                 If list IsNot Nothing AndAlso list.Count > 0 Then
                     targetCount = list.Count
-                    log.LogPut(CommonConst.LogLever_Notice, "GetSupplierMasterData 更新対象データ[" & targetCount.ToString & "]件 更新処理開始", "GetSupplierMasterData")
+                    'log.LogPut(CommonConst.LogLever_Notice, "GetSupplierMasterData 更新対象データ[" & targetCount.ToString & "]件 更新処理開始", "GetSupplierMasterData")
                     Using ta As New dsCronTableAdapters.M_SupplierTableAdapter(connectionString)
                         For Each item In list
 
@@ -59,9 +59,9 @@ Public Module cron_get_retela_supplier_master
                         Next
                     End Using
                 End If
-                Dim logMessage = "ReTELAからの応答データ件数 [" & targetCount & "]件 処理対象件数 [" & executeCount & "]件 ReTELAから仕入先マスタの差分取り込みが完了しました。"
-                log.LogPut(CommonConst.LogLever_Notice, "GetSupplierMasterData " & logMessage, "GetSupplierMasterData")
-                log.LogPut(CommonConst.LogLever_Notice, "GetSupplierMasterData succesfully!", "GetSupplierMasterData")
+                'Dim logMessage = "ReTELAからの応答データ件数 [" & targetCount & "]件 処理対象件数 [" & executeCount & "]件 ReTELAから仕入先マスタの差分取り込みが完了しました。"
+                'log.LogPut(CommonConst.LogLever_Notice, "GetSupplierMasterData " & logMessage, "GetSupplierMasterData")
+                'log.LogPut(CommonConst.LogLever_Notice, "GetSupplierMasterData succesfully!", "GetSupplierMasterData")
             Else
                 log.LogPut(CommonConst.LogLever_Notice, "cron_GetSupplierMasterData ReTELAからエラーが返却されました。エラーメッセージ [" & ret.Message & "]", "GetSupplierMasterData")
             End If
@@ -79,25 +79,25 @@ Public Module cron_get_retela_supplier_master
         Try
             Using trScope As New System.Transactions.TransactionScope(TransactionScopeOption.Required)
                 Using ta As New dsCronTableAdapters.M_SupplierTableAdapter(connectionString)
-                    sqlCommand = ta.GetUpdateCommandText()
-                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetSupplierMasterData")
+                    'sqlCommand = ta.GetUpdateCommandText()
+                    'log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetSupplierMasterData")
                     If ta.Update(PageDataSet.M_Supplier) < 1 Then
                         Return False
                     Else
                     End If
                 End Using
-                For Each row In PageDataSet.M_Supplier
-                    Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
-                        + "], supplierCd: [" + row("supplierCd").ToString() _
-                        + "], supplierName: [" + row("supplierName").ToString() _
-                        + "], sort_num: [" + row("sort_num").ToString() _
-                        + "], draft_flg: [" + row("draft_flg").ToString() _
-                        + "], update_user: [" + row("update_date").ToString() _
-                        + "], update_date: [" + row("update_date").ToString() _
-                        + "], del_flg: [" + row("del_flg").ToString() + "]"
-                    log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetSupplierMasterData")
-                    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetSupplierMasterData")
-                Next
+                'For Each row In PageDataSet.M_Supplier
+                '    Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
+                '        + "], supplierCd: [" + row("supplierCd").ToString() _
+                '        + "], supplierName: [" + row("supplierName").ToString() _
+                '        + "], sort_num: [" + row("sort_num").ToString() _
+                '        + "], draft_flg: [" + row("draft_flg").ToString() _
+                '        + "], update_user: [" + row("update_date").ToString() _
+                '        + "], update_date: [" + row("update_date").ToString() _
+                '        + "], del_flg: [" + row("del_flg").ToString() + "]"
+                '    log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetSupplierMasterData")
+                '    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetSupplierMasterData")
+                'Next
                 trScope.Complete()
             End Using
         Catch ex As Exception

@@ -18,7 +18,7 @@ Public Module cron_get_retela_franchise_master
                 Dim list = ret.List
                 If list IsNot Nothing AndAlso list.Count > 0 Then
                     targetCount = list.Count
-                    log.LogPut(CommonConst.LogLever_Notice, "GetFranchiseMasterData 更新対象データ[" & targetCount.ToString & "]件 更新処理開始", "GetFranchiseMasterData")
+                    'log.LogPut(CommonConst.LogLever_Notice, "GetFranchiseMasterData 更新対象データ[" & targetCount.ToString & "]件 更新処理開始", "GetFranchiseMasterData")
                     For Each item In list
 
                         PageDataSet.M_Franchise.Clear()
@@ -64,9 +64,9 @@ Public Module cron_get_retela_franchise_master
 
                     Next
                 End If
-                Dim logMessage = "ReTELAからの応答データ件数 [" & targetCount & "]件 処理対象件数 [" & executeCount & "]件 ReTELAからフランチャイズ会社マスタの差分取り込みが完了しました。"
-                log.LogPut(CommonConst.LogLever_Notice, "cron_GetFranchiseMasterData " & logMessage, "GetFranchiseMasterData")
-                log.LogPut(CommonConst.LogLever_Notice, "cron_GetFranchiseMasterData succesfully!", "GetFranchiseMasterData")
+                'Dim logMessage = "ReTELAからの応答データ件数 [" & targetCount & "]件 処理対象件数 [" & executeCount & "]件 ReTELAからフランチャイズ会社マスタの差分取り込みが完了しました。"
+                'log.LogPut(CommonConst.LogLever_Notice, "cron_GetFranchiseMasterData " & logMessage, "GetFranchiseMasterData")
+                'log.LogPut(CommonConst.LogLever_Notice, "cron_GetFranchiseMasterData succesfully!", "GetFranchiseMasterData")
             Else
                 log.LogPut(CommonConst.LogLever_Notice, "cron_GetFranchiseMasterData ReTELAからエラーが返却されました。エラーメッセージ [" & ret.Message & "]", "GetFranchiseMasterData")
             End If
@@ -85,25 +85,25 @@ Public Module cron_get_retela_franchise_master
 
             Using trScope As New System.Transactions.TransactionScope(TransactionScopeOption.Required)
                 Using ta As New dsCronTableAdapters.M_FranchiseTableAdapter(connectionString)
-                    sqlCommand = ta.GetUpdateCommandText()
-                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetFranchiseMasterData")
+                    'sqlCommand = ta.GetUpdateCommandText()
+                    'log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetFranchiseMasterData")
                     If ta.Update(PageDataSet.M_Franchise) < 1 Then
                         Return False
                     Else
                     End If
                 End Using
-                For Each row In PageDataSet.M_Franchise
-                    Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
-                        + "], fc_name: [" + row("fc_name").ToString() _
-                        + "], image1: [" + row("image1").ToString() _
-                        + "], sort_num: [" + row("sort_num").ToString() _
-                        + "], draft_flg: [" + row("draft_flg").ToString() _
-                        + "], update_user: [" + row("update_user").ToString() _
-                        + "], update_date: [" + row("update_date").ToString() _
-                        + "], del_flg: [" + row("del_flg").ToString()
-                    log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetFranchiseMasterData")
-                    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetFranchiseMasterData")
-                Next
+                'For Each row In PageDataSet.M_Franchise
+                '    Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
+                '        + "], fc_name: [" + row("fc_name").ToString() _
+                '        + "], image1: [" + row("image1").ToString() _
+                '        + "], sort_num: [" + row("sort_num").ToString() _
+                '        + "], draft_flg: [" + row("draft_flg").ToString() _
+                '        + "], update_user: [" + row("update_user").ToString() _
+                '        + "], update_date: [" + row("update_date").ToString() _
+                '        + "], del_flg: [" + row("del_flg").ToString()
+                '    log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetFranchiseMasterData")
+                '    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetFranchiseMasterData")
+                'Next
                 trScope.Complete()
             End Using
         Catch ex As Exception

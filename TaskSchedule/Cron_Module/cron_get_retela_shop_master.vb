@@ -19,7 +19,7 @@ Public Module cron_get_retela_shop_master
                 Dim list = ret.List
                 If list IsNot Nothing AndAlso list.Count > 0 Then
                     targetCount = list.Count
-                    log.LogPut(CommonConst.LogLever_Notice, "GetShopMasterData 更新対象データ[" & targetCount.ToString & "]件 更新処理開始", "GetShopMasterData")
+                    'log.LogPut(CommonConst.LogLever_Notice, "GetShopMasterData 更新対象データ[" & targetCount.ToString & "]件 更新処理開始", "GetShopMasterData")
 
                     For Each item In list
                         PageDataSet.M_Shop.Clear()
@@ -80,9 +80,9 @@ Public Module cron_get_retela_shop_master
                     Next
 
                 End If
-                Dim logMessage = "ReTELAからの応答データ件数 [" & targetCount & "]件 処理対象件数 [" & executeCount & "]件 ReTELAから店舗マスタの差分取り込みが完了しました。"
-                log.LogPut(CommonConst.LogLever_Notice, "cron_GetShopMasterData " & logMessage, "GetShopMasterData")
-                log.LogPut(CommonConst.LogLever_Notice, "cron_GetShopMasterData succesfully!", "GetShopMasterData")
+                'Dim logMessage = "ReTELAからの応答データ件数 [" & targetCount & "]件 処理対象件数 [" & executeCount & "]件 ReTELAから店舗マスタの差分取り込みが完了しました。"
+                'log.LogPut(CommonConst.LogLever_Notice, "cron_GetShopMasterData " & logMessage, "GetShopMasterData")
+                'log.LogPut(CommonConst.LogLever_Notice, "cron_GetShopMasterData succesfully!", "GetShopMasterData")
             Else
                 log.LogPut(CommonConst.LogLever_Notice, "cron_GetShopMasterData ReTELAからエラーが返却されました。エラーメッセージ [" & ret.Message & "]", "GetShopMasterData")
             End If
@@ -102,26 +102,26 @@ Public Module cron_get_retela_shop_master
 
             Using trScope As New System.Transactions.TransactionScope(TransactionScopeOption.Required)
                 Using ta As New dsCronTableAdapters.M_ShopTableAdapter(connectionString)
-                    sqlCommand = ta.GetUpdateCommandText()
-                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetShopMasterData")
+                    'sqlCommand = ta.GetUpdateCommandText()
+                    'log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetShopMasterData")
                     If ta.Update(PageDataSet.M_Shop) < 1 Then
                         Return False
                     Else
                     End If
                 End Using
-                For Each row In PageDataSet.M_Shop
-                    Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
-                        + "], shop_code: [" + row("shop_code").ToString() _
-                        + "], shop_name: [" + row("shop_name").ToString() _
-                        + "], fc_id_code: [" + row("fc_id_code").ToString() _
-                        + "], sort_num: [" + row("sort_num").ToString() _
-                        + "], draft_flg: [" + row("draft_flg").ToString() _
-                        + "], update_user: [" + row("update_user").ToString() _
-                        + "], update_date: [" + row("update_date").ToString() _
-                        + "], del_flg: [" + row("del_flg").ToString()
-                    log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetShopMasterData")
-                    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetShopMasterData")
-                Next
+                'For Each row In PageDataSet.M_Shop
+                '    Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
+                '        + "], shop_code: [" + row("shop_code").ToString() _
+                '        + "], shop_name: [" + row("shop_name").ToString() _
+                '        + "], fc_id_code: [" + row("fc_id_code").ToString() _
+                '        + "], sort_num: [" + row("sort_num").ToString() _
+                '        + "], draft_flg: [" + row("draft_flg").ToString() _
+                '        + "], update_user: [" + row("update_user").ToString() _
+                '        + "], update_date: [" + row("update_date").ToString() _
+                '        + "], del_flg: [" + row("del_flg").ToString()
+                '    log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetShopMasterData")
+                '    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetShopMasterData")
+                'Next
                 trScope.Complete()
             End Using
         Catch ex As Exception

@@ -20,7 +20,7 @@ Public Module cron_get_retela_category_m_master
                 Dim list = ret.List
                 If list IsNot Nothing AndAlso list.Count > 0 Then
                     targetCount = list.Count
-                    log.LogPut(CommonConst.LogLever_Notice, "GetCategoryMMasterData 更新対象データ[" & targetCount.ToString & "]件 更新処理開始", "GetCategoryMMasterData")
+                    'log.LogPut(CommonConst.LogLever_Notice, "GetCategoryMMasterData 更新対象データ[" & targetCount.ToString & "]件 更新処理開始", "GetCategoryMMasterData")
                     PageDataSet.M_CategoryM.Clear()
                     Using ta As New dsCronTableAdapters.M_CategoryMTableAdapter(connectionString)
                         Dim idCode = CInt(ta.MaxIDQuery) + 1
@@ -57,9 +57,9 @@ Public Module cron_get_retela_category_m_master
                     If DataUpdate(connectionString) Then
                     End If
                 End If
-                Dim logMessage = "ReTELAからの応答データ件数 [" & targetCount & "]件 処理対象件数 [" & executeCount & "]件 ReTELAから中分類マスタの差分取り込みが完了しました。"
-                log.LogPut(CommonConst.LogLever_Notice, "cron_GetCategoryLMasterData " & logMessage, "GetCategoryMMasterData")
-                log.LogPut(CommonConst.LogLever_Notice, "cron_GetCategoryLMasterData succesfully!", "GetCategoryMMasterData")
+                'Dim logMessage = "ReTELAからの応答データ件数 [" & targetCount & "]件 処理対象件数 [" & executeCount & "]件 ReTELAから中分類マスタの差分取り込みが完了しました。"
+                'log.LogPut(CommonConst.LogLever_Notice, "cron_GetCategoryLMasterData " & logMessage, "GetCategoryMMasterData")
+                'log.LogPut(CommonConst.LogLever_Notice, "cron_GetCategoryLMasterData succesfully!", "GetCategoryMMasterData")
             Else
                 log.LogPut(CommonConst.LogLever_Notice, "cron_GetCategoryLMasterData ReTELAからエラーが返却されました。エラーメッセージ [" & ret.Message & "]", "GetCategoryMMasterData")
             End If
@@ -75,27 +75,27 @@ Public Module cron_get_retela_category_m_master
         Try
             Using trScope As New System.Transactions.TransactionScope(TransactionScopeOption.Required)
                 Using ta As New dsCronTableAdapters.M_CategoryMTableAdapter(connectionString)
-                    sqlCommand = ta.GetUpdateCommandText()
-                    log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetCategoryMMasterData")
+                    'sqlCommand = ta.GetUpdateCommandText()
+                    'log.LogPut(CommonConst.LogLever_Notice, sqlCommand, "GetCategoryMMasterData")
                     If ta.Update(PageDataSet.M_CategoryM) < 1 Then
                         Return False
                     Else
                     End If
                 End Using
-                For Each row In PageDataSet.M_CategoryM
-                    Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
-                        + "], DaiCd: [" + row("DaiCd").ToString() _
-                        + "], CyuCd: [" + row("CyuCd").ToString() _
-                        + "], category_name: [" + row("category_name").ToString() _
-                        + "], comment: [" + row("comment").ToString() _
-                        + "], sort_num: [" + row("sort_num").ToString() _
-                        + "], draft_flg: [" + row("draft_flg").ToString() _
-                        + "], update_user: [" + row("update_date").ToString() _
-                        + "], update_date: [" + row("update_date").ToString() _
-                        + "], del_flg: [" + row("del_flg").ToString() + "]"
-                    log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetCategoryMMasterData")
-                    log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetCategoryMMasterData")
-                Next
+                'For Each row In PageDataSet.M_CategoryM
+                '    'Dim sqlParam = "bind params..id_code: [" + row.id_code.ToString() _
+                '    '    + "], DaiCd: [" + row("DaiCd").ToString() _
+                '    '    + "], CyuCd: [" + row("CyuCd").ToString() _
+                '    '    + "], category_name: [" + row("category_name").ToString() _
+                '    '    + "], comment: [" + row("comment").ToString() _
+                '    '    + "], sort_num: [" + row("sort_num").ToString() _
+                '    '    + "], draft_flg: [" + row("draft_flg").ToString() _
+                '    '    + "], update_user: [" + row("update_date").ToString() _
+                '    '    + "], update_date: [" + row("update_date").ToString() _
+                '    '    + "], del_flg: [" + row("del_flg").ToString() + "]"
+                '    'log.LogPut(CommonConst.LogLever_Notice, sqlParam, "GetCategoryMMasterData")
+                '    'log.LogPut(CommonConst.LogLever_Notice, "Executed sql successful!", "GetCategoryMMasterData")
+                'Next
                 trScope.Complete()
             End Using
         Catch ex As Exception

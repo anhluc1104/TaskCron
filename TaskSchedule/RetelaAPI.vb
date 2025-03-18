@@ -119,22 +119,22 @@ Public Module RetelaAPI
 
     Private Function PostApiCron(url As String, data As Dictionary(Of String, String), apiName As String) As String
         Dim log As New LogUtil()
-        log.LogPut(CommonConst.LogLever_Notice, "送信先URL[" & url & "]", apiName)
-        log.LogPut(CommonConst.LogLever_Notice, "data[" & JsonConvert.SerializeObject(data) & "]", apiName)
         Try
             Using client As New HttpClient()
                 client.Timeout = TimeSpan.FromSeconds(600)
                 Dim content As New FormUrlEncodedContent(data)
                 Dim response As HttpResponseMessage = client.PostAsync(url, content).Result
                 Dim responseString As String = response.Content.ReadAsStringAsync().Result
-                log.LogPut(CommonConst.LogLever_Notice, "response 文字列[" & responseString & "]", apiName)
+                'log.LogPut(CommonConst.LogLever_Notice, "response 文字列[" & responseString & "]", apiName)
                 If response.IsSuccessStatusCode Then
                 Else
-                    log.LogPut(CommonConst.LogLever_Notice, "Lỗi khi gọi API: " & response.StatusCode, apiName)
+                    log.LogPut(CommonConst.LogLever_Error, "Lỗi khi gọi API: " & response.StatusCode, apiName)
                 End If
                 Return responseString
             End Using
         Catch ex As Exception
+            log.LogPut(CommonConst.LogLever_Error, "送信先URL[" & url & "]", apiName)
+            log.LogPut(CommonConst.LogLever_Error, "data[" & JsonConvert.SerializeObject(data) & "]", apiName)
             log.LogPut(CommonConst.LogLever_Error, ex.Message, apiName)
             Return Nothing
         End Try
